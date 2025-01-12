@@ -260,6 +260,51 @@ class BookTracker {
         this.booksGoalElement.textContent = this.booksGoal;
         this.goalPercentageElement.textContent = `${percentage}%`;
         this.goalProgressBar.style.width = `${Math.min(percentage, 100)}%`;
+
+        // Trigger celebration animation if goal is reached
+        if (booksCount >= this.booksGoal && percentage === 100) {
+            this.goalProgressBar.classList.add('celebrate');
+
+            // Trigger confetti
+            this.triggerConfetti();
+
+            // Remove the class after the animation ends to allow re-triggering
+            setTimeout(() => {
+                this.goalProgressBar.classList.remove('celebrate');
+            }, 500); // Match the duration of the animation
+        }
+    }
+
+    triggerConfetti() {
+        const duration = 3 * 1000; // Duration in milliseconds
+        const animationEnd = Date.now() + duration;
+        const defaults = {
+            startVelocity: 30,
+            spread: 360,
+            ticks: 60,
+            gravity: 1,
+            colors: ['#bb0000', '#ffffff']
+        };
+
+        function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        (function frame() {
+            const timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) return;
+
+            const particleCount = 50 * (timeLeft / duration);
+            confetti(Object.assign({}, defaults, {
+                particleCount,
+                origin: {
+                    x: Math.random(),
+                    y: Math.random() - 0.2
+                }
+            }));
+
+            requestAnimationFrame(frame);
+        })();
     }
 
     saveBook(id) {
