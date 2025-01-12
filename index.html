@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Reading Tracker</h1>
+        </header>
+
+        <section class="statistics" aria-labelledby="stats-heading">
+            <h2 id="stats-heading">Statistics</h2>
+            <div class="statistics__goal">
+                <div class="goal-display">
+                    <h3>Reading Goal Progress</h3>
+                    <p>Books Read: <span id="books-count">0</span>/<span id="books-goal">0</span> (<span id="goal-percentage">0%</span>)</p>
+                    <div class="progress-bar">
+                        <div class="progress-bar__fill" id="goal-progress-bar"></div>
+                    </div>
+                </div>
+                <button class="btn btn--secondary" id="edit-goal-btn">Edit Goal</button>
+            </div>
+            <div class="statistics__total">
+                <p>Total Pages Read: <span id="total-pages">0</span></p>
+            </div>
+            <div class="statistics__graph">
+                <canvas id="reading-graph" aria-label="Monthly reading graph" role="img"></canvas>
+            </div>
+        </section>
+
+        <section class="book-form" aria-labelledby="form-heading">
+            <h2 id="form-heading">Add New Book</h2>
+            <form id="book-form" class="book-form__inline">
+                <div class="form-group">
+                    <label for="book-title">Book Title</label>
+                    <input type="text" id="book-title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="read-date">Date Read</label>
+                    <input type="date" id="read-date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="page-count">Pages</label>
+                    <input type="number" id="page-count" name="pages" min="1" required>
+                </div>
+                <div class="form-group form-group--button">
+                    <label class="invisible">Add Book</label>
+                    <button type="submit" class="btn btn--primary">Add Book</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="book-list" aria-labelledby="list-heading">
+            <h2 id="list-heading">Your Books</h2>
+            <div id="books-container"></div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 
